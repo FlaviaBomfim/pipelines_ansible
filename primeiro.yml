@@ -1,0 +1,14 @@
+- name: Instalando Docker
+  hosts: all
+  become: yes
+  tasks: 
+  - name: Instalando Docker 
+    package:
+      name: '{{item}}'
+      update_cache: yes 
+    with_items:
+     - vim
+     - htop
+     - curl
+     - wget
+

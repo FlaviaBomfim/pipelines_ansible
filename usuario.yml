@@ -1,0 +1,20 @@
+- name: Adicionando usuarios
+  hosts: google
+  become: yes
+  tasks:
+  - name: Usuarios
+    user:
+      name: "{{item}}"
+    with_items: 
+      - gabriel
+      - jorge
+      - judith 
+
+
+  - name: Instalando Pacotes
+    package:
+      name: "{{item}}"
+    with_items: 
+      - figlet
+      - cowsay
+      - htop 

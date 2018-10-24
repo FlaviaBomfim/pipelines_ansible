@@ -1,0 +1,32 @@
+- name: Instalando Docker
+  hosts: google
+  become: yes
+  tasks: 
+  - name: Instalando pacotes 
+    package:
+      name: "{{item}}"
+    with_items:
+      - figlet
+      - cowsay
+  - name: Instalando Docker-Ce
+    shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
+
+  - name: Instalando Docker-Ce
+    shell: "sh get-docker.sh"
+
+- name: Instalando Docker na AWS
+  hosts: aws
+  become: yes
+  tasks:
+  - name: Instalando pacotes
+    package: 
+      name: "{{item}}"
+    with_items:
+      - figlet
+      - cowsay
+  - name: Instalando Docker-Ce
+    shell: "curl -fsSL https://get.docker.com -o get-docker.sh"
+  - name: Instalando Docker-Ce
+    shell: "sh get-docker.sh"
+  
+  

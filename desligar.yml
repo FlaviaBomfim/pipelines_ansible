@@ -1,0 +1,6 @@
+- name: Desligar todas as maquinas
+  hosts: all
+  become: yes
+  tasks:
+   - name: Desligar
+     shell: "init 0"

@@ -1,0 +1,42 @@
+- name: Instalando Puppet
+  hosts: all
+  become: yes
+  tasks: 
+  - name: Instalando Repositorio do Puppet em CentOS
+    yum: 
+     name: "https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm"
+    when: ansible_os_family == "RedHat"
+
+  - name: Instalando Repositorio do Puppet em Debian
+    apt:
+     deb: "https://apt.puppetlabs.com/puppet5-release-xenial.deb"
+     update_cache: yes 
+    when: ansible_os_family == "Debian"
+
+  - name: Instalando Pacote Puppet-Agent 
+    package:
+     name: puppet-agent
+     update_cache: yes
+
+
+  - name: Instalando Puppet-Server
+    package:
+     name: puppetserver
+    when: ansible_hostname == "estudo1"
+
+  - name: Configurando etc hosts
+    blockinfile: 
+     path: /etc/hosts
+     block: | 
+      18.223.30.91	aws1.jorge.com.br
+      18.225.9.119	aws2.jorge.com.br
+      35.186.178.54 	google1.jorge.com.br
+      35.229.104.8 	google2.jorge.com.br
+ 
+  - name: Configurando o puppet Agent
+    blockinfile:
+      path: /etc/puppetlabs/puppet/puppet.conf
+      block: | 
+        [agent]
+         server = google1.jorge.com.br
+         runinterval = 30
